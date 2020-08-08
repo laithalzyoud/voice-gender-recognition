@@ -1,6 +1,7 @@
 # mawdoo3-ai-task
 
-This repository is created to solve the task given by mawdoo3.ai during the interview process.
+## Summary
+This repository is created to solve the task given by mawdoo3.ai during their interview process. It contains necessary code to pre-process data, extract audio features based on the mel-spectogram and train models to classify gender based on audio features. All the metnioned processes was exposed with RESTFul API's using Python web framework Flask. A Docker image is also available to run this project out of the box :zap:
 
 ## Data Specifications
 
@@ -12,6 +13,8 @@ The dataset contains valid and invalid data, I'll use only the **valid train** d
 
 ## Data Extraction
 
-- The following dataset was downloaded from Kaggle: https://www.kaggle.com/mozillaorg/common-voice/data?select=cv-valid-train
-- The datasets was filtered for utterances that is gender classified
-- 
+- The following dataset was downloaded from Kaggle: https://www.kaggle.com/mozillaorg/common-voice/data?select=cv-valid-train, you need to update the [config](https://github.com/laithalzyoud/mawdoo3-ai-task/blob/master/config.json) with the new path for the downloaded dataset.
+- The dataset was filtered for utterances that is only gender classified as male or female
+- The dataset was balanced based on the minimum # of gender occurrences to avoid bias in the trained models
+
+API: `/filter`
