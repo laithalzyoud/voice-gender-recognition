@@ -11,7 +11,6 @@ import json
 import pandas as pd
 from flask import Flask, jsonify
 from flask_cors import CORS
-from logzero import logger
 from helper import *
 import concurrent.futures
 from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping
@@ -57,7 +56,6 @@ def create_app(config=None):
 
     @app.route("/generate")
     def generate():
-        logger.info(app.config)
         try:
             df = pd.read_csv("results/balanced_filtered_audio.csv")
             audio_files = [app.config['input_audio_path'] + filename for filename in df['filename'].values.tolist()]

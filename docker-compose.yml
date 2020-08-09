@@ -1,0 +1,9 @@
+version: '3.6'
+
+services:
+    mawdoo3-ai:
+        image: mawdoo3-ai:latest
+        ports:
+          - "8000:8000"
+        volumes: 
+          - /Users/laithalzyoud:/home/user

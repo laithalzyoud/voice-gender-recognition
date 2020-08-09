@@ -1,6 +1,5 @@
 Flask==0.12.2
 flask-cors==3.0.2
-logzero
 Werkzeug==0.16.1
 librosa
 numpy
