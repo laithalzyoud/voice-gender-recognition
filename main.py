@@ -77,8 +77,9 @@ def create_app(config=None):
             X, y = load_data()
             # split the data into training, validation and testing sets
             data = split_data(X, y, test_size=0.1, valid_size=0.1)
-            accuracy_result = 0
-            if(network_type == "feedforward"):
+            accuracy_train = 0
+            accuracy_test = 0
+            if(network_type == "mlpkeras"):
                 # construct the model
                 model = create_model()
 
@@ -91,36 +92,38 @@ def create_app(config=None):
                 # evaluate the model accuracy using the testing set
                 loss, accuracy = model.evaluate(data["X_train"], data["y_train"], verbose=0)
                 print("Accuracy on training set: {:.3f}".format(accuracy))
+                accuracy_train = accuracy
                 loss, accuracy = model.evaluate(data["X_test"], data["y_test"], verbose=0)
                 print("Accuracy on test set: {:.3f}".format(accuracy))
-                accuracy_result = accuracy
+                accuracy_test = accuracy
 
             elif network_type == "randomforest":
-                forest = RandomForestClassifier(n_estimators=5, random_state=0).fit(data["X_train"], data["y_train"])
-                print("Accuracy on training set: {:.3f}".format(forest.score(data["X_train"], data["y_train"])))
-                accuracy_result = forest.score(data["X_test"], data["y_test"])
-                print("Accuracy on test set: {:.3f}".format(accuracy_result))
+                forest = RandomForestClassifier(n_estimators=5, random_state=0,verbose=True).fit(data["X_train"], data["y_train"])
+                accuracy_train = forest.score(data["X_train"], data["y_train"])
+                print("Accuracy on training set: {:.3f}".format(accuracy_train))
+                accuracy_test = forest.score(data["X_test"], data["y_test"])
+                print("Accuracy on test set: {:.3f}".format(accuracy_test))
             
             elif network_type == "decisiontree":
-                tree = DecisionTreeClassifier(random_state=0).fit(data["X_train"], data["y_train"])
-                print("Decision Tree")
-                print("Accuracy on training set: {:.3f}".format(tree.score(data["X_train"], data["y_train"])))
-                accuracy_result = tree.score(data["X_test"], data["y_test"])
-                print("Accuracy on test set: {:.3f}".format(accuracy_result))
+                tree = DecisionTreeClassifier(random_state=0,verbose=True).fit(data["X_train"], data["y_train"])
+                accuracy_train = tree.score(data["X_train"], data["y_train"])
+                print("Accuracy on training set: {:.3f}".format(accuracy_train))
+                accuracy_test = tree.score(data["X_test"], data["y_test"])
+                print("Accuracy on test set: {:.3f}".format(accuracy_test))
             elif network_type == "gradientboosting":
-                gbrt = GradientBoostingClassifier(random_state=0).fit(data["X_train"], data["y_train"])
-                print("Gradient Boosting")
-                print("Accuracy on training set: {:.3f}".format(gbrt.score(data["X_train"], data["y_train"])))
-                accuracy_result = gbrt.score(data["X_test"], data["y_test"])
-                print("Accuracy on test set: {:.3f}".format(accuracy_result))
-            elif network_type == "mlp":
-                mlp = MLPClassifier(random_state=0).fit(data["X_train"], data["y_train"])
-                print("Multilayer Perceptron")
-                print("Accuracy on training set: {:.3f}".format(mlp.score(data["X_train"], data["y_train"])))
-                accuracy_result = mlp.score(data["X_test"], data["y_test"])
-                print("Accuracy on test set: {:.3f}".format(accuracy_result))
+                gbrt = GradientBoostingClassifier(random_state=0,verbose=True).fit(data["X_train"], data["y_train"])
+                accuracy_train = gbrt.score(data["X_train"], data["y_train"])
+                print("Accuracy on training set: {:.3f}".format(accuracy_train))
+                accuracy_test = gbrt.score(data["X_test"], data["y_test"])
+                print("Accuracy on test set: {:.3f}".format(accuracy_test))
+            elif network_type == "mlpsk":
+                mlpsk = MLPClassifier(random_state=0,verbose=True).fit(data["X_train"], data["y_train"])
+                accuracy_train = mlpsk.score(data["X_train"], data["y_train"])
+                print("Accuracy on training set: {:.3f}".format(accuracy_train))
+                accuracy_test = mlpsk.score(data["X_test"], data["y_test"])
+                print("Accuracy on test set: {:.3f}".format(accuracy_test))
 
-            return jsonify({"result": "success","accuracy":accuracy_result})
+            return jsonify({"result": "success","accuracy_train":accuracy_train,"accuracy_test":accuracy_test})
         except Exception as e:
             return jsonify({"result": "failure", "exception":str(e)})
 

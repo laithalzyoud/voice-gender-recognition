@@ -32,11 +32,11 @@ API: `/generate`
 - The first function `load_data` prepares the data to be ready as an input for the ML models,it loads all the features from the `npy` files and aggregate them into one NumPy array, also it creates a labels array that contains a boolean that specifies if the features are corresponding to a female or a male (Indicator RV). 
 - The second function `split_data` splits the data into training,validating and testing sets as 0.8,0.1,0.1 of the original dataset, respctively. 
 - The following neural network types are implemented in the `train` function and used as our classifiers:
-1. Feed Forward - Manual | API: `/train/feedforward`
+1. Feed Forward Keras MLP 5 Layers | API: `/train/mlpkeras`
 2. Random Forest | API: `/train/randomforest`
 3. Decision Tree | API: `/train/decisiontree`
 4. Gradient Boosting | API: `/train/gradientboosting`
-5. Feed Forward - Multilayer Perceptron | API: `/train/mlp`
+5. Feed Forward Sklearn MLP 100 Layers | API: `/train/mlpsk`
 
 ## Docker Instructions
 
@@ -73,3 +73,52 @@ Some exploratory plots showing how the dataset is segmented, you can find the Ju
 3. Duration
 
 ![Duration](plots/durations.jpg)
+
+## Results
+
+- Feed Forward MLP Keras with 5 Layers 
+```
+{
+  "accuracy_test": 0.9073972702026367, 
+  "accuracy_train": 0.9228089451789856, 
+  "result": "success"
+}
+```
+
+- Decision Tree Classifier
+```
+{
+  "accuracy_test": 0.8857534246575343, 
+  "accuracy_train": 1.0, 
+  "result": "success"
+}
+```
+
+- Random Forest Classifier
+```
+{
+  "accuracy_test": 0.9087671232876713, 
+  "accuracy_train": 0.9915434834083144, 
+  "result": "success"
+}
+```
+
+- Gradient Boosting Classifier
+```
+{
+  "accuracy_test": 0.9134246575342466, 
+  "accuracy_train": 0.9248384805330988, 
+  "result": "success"
+}
+```
+
+- Feed Forward - MLP (Sklearn) with 100 layers
+```
+{
+  "accuracy_test": 0.9158904109589041, 
+  "accuracy_train": 0.9623854142001826, 
+  "result": "success"
+}
+```
+
+The accuracy results for the test data are within the same range for all the tested models, the model with the highest accuracy is the MLP deep learning model using a feed forward neural network of 100 layers, we can focus on it and improve its results using hyperparameter optimization with a Keras Regressor or using `talos` to get the best set of parameters to use to acheive higher accuracy, but I don't have enough time and resources to run such a demanding process currently :smile: 
