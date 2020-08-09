@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Documentation
+mawdoo3-ai-task
 
-See also https://www.python-boilerplate.com/flask
+This Python module is created as a soultion for the task given by Mawdoo3 AI through their interview process.
+
 """
 import os
 import glob
@@ -28,6 +29,9 @@ def create_app(config=None):
     # Setup cors headers to allow all domains
     CORS(app)
 
+    @app.route("/")
+    def test():
+        return "Hello"
     # Definition of the routes.
     @app.route("/filter")
     def filter():
