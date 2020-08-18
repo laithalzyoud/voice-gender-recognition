@@ -1,7 +1,7 @@
 # mawdoo3-ai-task
 
 ## Summary
-This repository has been created to solve the task given by mawdoo3.ai during their interview process. It contains the necessary code to pre-process data, extract audio features based on mel-spectogram and train models to classify gender based on audio features. All the of these stages were exposed with RESTFul API's using the Python web framework Flask. A Docker image is also available to run this project out of the box without the hassle of setting up your dev environment :zap:
+This repository contains the necessary code to pre-process audio data, extract audio features based on mel-spectogram and train models to classify gender based on audio features. All the of these stages were exposed with RESTFul API's using the Python web framework Flask. A Docker image is also available to run this project out of the box without the hassle of setting up your dev environment :zap:
 
 ## Data Specifications
 
