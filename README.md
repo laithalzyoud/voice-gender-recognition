@@ -1,4 +1,3 @@
-# mawdoo3-ai-task
 
 ## Summary
 This repository contains the necessary code to pre-process audio data, extract audio features based on mel-spectogram and train models to classify gender based on audio features. All the of these stages were exposed with RESTFul API's using the Python web framework Flask. A Docker image is also available to run this project out of the box without the hassle of setting up your dev environment :zap:
@@ -14,7 +13,7 @@ The dataset contains validated and invalidated data, I'll use only the **valid t
 
 ## Data Extraction
 
-- The following dataset was downloaded from Kaggle: https://www.kaggle.com/mozillaorg/common-voice/data?select=cv-valid-train, you need to update the [config](https://github.com/laithalzyoud/mawdoo3-ai-task/blob/master/config.json) with the new path for the downloaded dataset **if** you are not using Docker otherwise you have to change it from [docker-compose.yml](https://github.com/laithalzyoud/mawdoo3-ai-task/blob/master/docker-compose.yml).
+- The following dataset was downloaded from Kaggle: https://www.kaggle.com/mozillaorg/common-voice/data?select=cv-valid-train, you need to update the [config](https://github.com/laithalzyoud/voice-gender-recognition/blob/master/config.json) with the new path for the downloaded dataset **if** you are not using Docker otherwise you have to change it from [docker-compose.yml](https://github.com/laithalzyoud/voice-gender-recognition/blob/master/docker-compose.yml).
 - The dataset was filtered for utterances that is only gender classified as male or female
 - The dataset was balanced based on the minimum # of gender occurrences to avoid bias in the trained models
 
@@ -43,10 +42,10 @@ API: `/generate`
 To run this project using Docker follow these steps:
 
 1. Make sure you have the latest Docker and docker-compose verisons installed
-2. Pull the image: `docker pull laithalzyoud/mawdoo3-ai:latest`
-3. Clone the GitHub repository: `git clone https://github.com/laithalzyoud/mawdoo3-ai-task.git`
+2. Pull the image: `docker pull laithalzyoud/voice-gender-recognition:latest`
+3. Clone the GitHub repository: `git clone https://github.com/laithalzyoud/voice-gender-recognition.git`
 4. Download the audio dataset and add its path to the `docker-compose.yml` file.
-4. Open the terminal and go to the project path: `cd your_path_to/mawdoo3-ai-task`
+4. Open the terminal and go to the project path: `cd your_path_to/voice-gender-recognition`
 5. Exectue the following command: `docker-compose up`
 
 You can trigger the APIs from your browser or using `curl` on port 8000 with the following order:
@@ -59,7 +58,7 @@ Happy dockerization!
 
 ## Exploratory Data Analysis
 
-Some exploratory plots showing how the dataset is segmented, you can find the Jupyter notebook that was used to generate these plots here [Exploratory.ipynb](https://github.com/laithalzyoud/mawdoo3-ai-task/blob/master/Exploratory.ipynb):
+Some exploratory plots showing how the dataset is segmented, you can find the Jupyter notebook that was used to generate these plots here [Exploratory.ipynb](https://github.com/laithalzyoud/voice-gender-recognition/blob/master/Exploratory.ipynb):
 
 1. Gender: 
    
@@ -120,5 +119,3 @@ Some exploratory plots showing how the dataset is segmented, you can find the Ju
   "result": "success"
 }
 ```
-
-The accuracy results for the test data are within the same range for all the tested models, the model with the highest accuracy is the MLP deep learning model using a feed forward neural network of 100 layers, we can focus on it and improve its results using hyperparameter optimization with a Keras Regressor or using `talos` to get the best set of parameters to use to acheive higher accuracy, but I don't have enough time and resources to run such a demanding process currently :smile: 
